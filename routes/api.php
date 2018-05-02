@@ -16,6 +16,6 @@ use Illuminate\Http\Request;
 Route::post('register', 'AccountController@register');
 Route::post('authenticate', 'JwtAuthenticateController@authenticate');
 
-Route::group(['middleware' => ['jwt_ability:user']], function() {
-    Route::post('todo/create', 'TodoController@store');
+Route::group(['middleware' => ['ability:user']], function() {
+    Route::post('todo/store', 'TodoController@store');
 });
