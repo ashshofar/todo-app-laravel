@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', 'AccountController@register');
+Route::post('authenticate', 'JwtAuthenticateController@authenticate');
+
+Route::group(['middleware' => ['jwt_ability:user']], function() {
+    Route::post('todo/create', 'TodoController@store');
 });
