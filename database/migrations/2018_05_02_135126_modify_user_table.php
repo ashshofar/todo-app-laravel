@@ -31,7 +31,7 @@ class ModifyUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('name')->change();
             $table->dropColumn('username');
-            $table->string('email')->unique();
+            // $table->string('email')->unique();
         });
     }
 }
