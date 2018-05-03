@@ -33,3 +33,12 @@ Route::group(['middleware' => ['ability:user']], function() {
     });
 
 });
+
+//You Must Login as Client
+Route::group(['middleware' => ['ability:client']], function(){
+
+    Route::group(['prefix' => 'client'], function(){
+        Route::get('all', 'TodoController@getAll');
+    });
+    
+});

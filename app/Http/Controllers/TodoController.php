@@ -43,6 +43,43 @@ class TodoController extends Controller
         return $this->getResponse(200, $todo, 'List Todo');
     }
 
+    public function getAll(Request $request)
+    {
+        $paginate   = is_null($request->paginate) ? 10 : $request->paginate;
+        
+        $priority   = $request->priority;
+        $status     = $request->status;
+        $prev       = $request->prev;
+        
+        $todo = Todo::with('user');
+        
+        if(!is_null($status)){
+            if($status == 1){
+                $todo = $todo->where('status', 1);
+            } else if($status == 0){
+                $todo = $todo->where('status', 0);
+            }
+        }
+
+        if(!is_null($priority)){
+            if($priority == 1){
+                $todo = $todo->orderBy('priority', 'DESC');
+            } else if($priority == 0){
+                $todo = $todo->orderBy('priority', 'ASC');
+            }
+        }
+
+        if(!is_null($prev)){
+            if($prev == 1){
+                $todo = $todo->whereDate('time_start', '<=', Carbon::now());
+            }
+        }
+
+        $todo = $todo->paginate((int) $paginate);
+        
+        return $this->getResponse(200, $todo, 'List Todo');
+    }
+
     public function show(Request $request, $id)
     {
         $user = Auth()->user();
