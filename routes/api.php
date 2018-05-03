@@ -17,5 +17,19 @@ Route::post('register', 'AccountController@register');
 Route::post('authenticate', 'JwtAuthenticateController@authenticate');
 
 Route::group(['middleware' => ['ability:user']], function() {
-    Route::post('todo/store', 'TodoController@store');
+    
+    Route::group(['prefix' => 'todo'], function(){
+        Route::get('get', 'TodoController@get');
+        Route::get('show/{id}', 'TodoController@show');
+        Route::post('store', 'TodoController@store');
+    
+        //if you try patch via postman, you must use x-www-url-form-urlencoded
+        Route::patch('patch/{id}', 'TodoController@patch');
+    
+        //update todo via POST method
+        Route::post('update/{id}', 'TodoController@patch');
+    
+        Route::delete('delete/{id}', 'TodoController@destroy');
+    });
+
 });
