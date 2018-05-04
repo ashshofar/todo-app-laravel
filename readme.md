@@ -17,4 +17,14 @@ Install
     CACHE_DRIVER=array
 - run php artisan vendor:publish
 - run php artisan jwt:generate 
-- run php artisan migrate --seed
+- run php artisan migrate --seed\
+
+DEMO ACCOUNT
+
+User: 
+- Username: user
+- Password: secret
+
+Client: 
+- Username: client
+- Password: secret
